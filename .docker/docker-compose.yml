@@ -39,6 +39,8 @@ services:
     image: redis:7.2
   mailhog:
     image: mailhog/mailhog
+    ports:
+      - "8025:8025"
   varnish:
     image: varnish:7.7
     ports:

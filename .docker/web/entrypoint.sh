@@ -41,11 +41,17 @@ if [ ! -f "app/etc/env.php" ]; then
         --session-save-redis-db=2 \
         --http-cache-hosts=varnish:80
 
+    # Configuration de Varnish
     bin/magento config:set system/full_page_cache/caching_application 2
     bin/magento config:set system/full_page_cache/varnish/access_list "localhost,web,nginx,varnish"
     bin/magento config:set system/full_page_cache/varnish/backend_host web
     bin/magento config:set system/full_page_cache/varnish/backend_port 80
     bin/magento config:set system/full_page_cache/varnish/grace_period 300
+
+    # MailHog SMTP
+    bin/magento config:set system/smtp/transport smtp
+    bin/magento config:set system/smtp/host mailhog
+    bin/magento config:set system/smtp/port 1025
 
     bin/magento sampledata:deploy
     bin/magento deploy:mode:set developer
