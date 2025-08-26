@@ -36,7 +36,7 @@ services:
       - plugins.security.disabled=true
       - OPENSEARCH_INITIAL_ADMIN_PASSWORD=Magento2!.
   redis:
-    image: magento/magento-cloud-docker-redis
+    image: redis:7.2
   mailhog:
     image: mailhog/mailhog
   varnish:

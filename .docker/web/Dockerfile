@@ -43,6 +43,9 @@ RUN { \
     echo 'opcache.validate_timestamps=0'; \
 } > /usr/local/etc/php/conf.d/opcache.ini
 
+# Installer redis-cli
+RUN apt-get update && apt-get install -y redis-tools
+
 WORKDIR /var/www/html
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh

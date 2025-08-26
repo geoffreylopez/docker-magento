@@ -29,7 +29,16 @@ if [ ! -f "app/etc/env.php" ]; then
         --use-rewrites=1 \
         --search-engine=opensearch \
         --opensearch-host=opensearch \
-        --opensearch-password=Magento2!.
+        --opensearch-password=Magento2!. \
+        --cache-backend=redis \
+        --cache-backend-redis-server=redis \
+        --cache-backend-redis-db=0 \
+        --page-cache=redis \
+        --page-cache-redis-server=redis \
+        --page-cache-redis-db=1 \
+        --session-save=redis \
+        --session-save-redis-host=redis \
+        --session-save-redis-db=2
     bin/magento sampledata:deploy
     bin/magento deploy:mode:set developer
 fi
