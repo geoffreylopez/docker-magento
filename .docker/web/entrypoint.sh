@@ -38,7 +38,15 @@ if [ ! -f "app/etc/env.php" ]; then
         --page-cache-redis-db=1 \
         --session-save=redis \
         --session-save-redis-host=redis \
-        --session-save-redis-db=2
+        --session-save-redis-db=2 \
+        --http-cache-hosts=varnish:80
+
+    bin/magento config:set system/full_page_cache/caching_application 2
+    bin/magento config:set system/full_page_cache/varnish/access_list "localhost,web,nginx,varnish"
+    bin/magento config:set system/full_page_cache/varnish/backend_host web
+    bin/magento config:set system/full_page_cache/varnish/backend_port 80
+    bin/magento config:set system/full_page_cache/varnish/grace_period 300
+
     bin/magento sampledata:deploy
     bin/magento deploy:mode:set developer
 fi

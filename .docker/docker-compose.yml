@@ -41,3 +41,9 @@ services:
     image: mailhog/mailhog
   varnish:
     image: varnish:7.7
+    ports:
+      - "8080:80"
+    volumes:
+      - ./varnish/varnish.vcl:/etc/varnish/default.vcl
+    depends_on:
+      - web
