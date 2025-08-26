@@ -15,5 +15,6 @@ It includes the following services:
 ## How it works
 1. Clone the repository to your local machine.
 2. Navigate to the .docker directory.
-3. Run `docker-compose up -d` to start the services.
-4. Access the Magento 2 by navigating to `http://localhost` in your web browser.
+3. Clone the .env.sample file to .env and adjust the environment variables as needed.
+4. Run `docker-compose up -d` to start the services.
+5. Access the Magento 2 by navigating to `http://localhost` in your web browser.
