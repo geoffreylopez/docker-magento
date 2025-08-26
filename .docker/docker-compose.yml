@@ -1,0 +1,43 @@
+name: magento-compose
+
+services:
+  web:
+    build: ./web
+    expose:
+      - "9000"
+    environment:
+      COMPOSER_AUTH: '{"http-basic": {"repo.magento.com": {"username": "129399439e8355de979e2b2a18dad74a","password": "90577528edc8231a390eab29d0ef3df3"}}}'
+    volumes:
+      - ./../magento:/var/www/html
+    depends_on:
+      - db
+      - opensearch
+      - redis
+  db:
+    image: mariadb:11.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: magento
+      MYSQL_USER: magento
+      MYSQL_PASSWORD: magento
+  nginx:
+    image: nginx:1.29.1
+    volumes:
+      - ./../magento:/var/www/html
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+  opensearch:
+    image: opensearchproject/opensearch:3
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=Magento2!.
+  redis:
+    image: magento/magento-cloud-docker-redis
+  mailhog:
+    image: mailhog/mailhog
+  varnish:
+    image: varnish:7.7
