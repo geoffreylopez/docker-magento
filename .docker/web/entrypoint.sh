@@ -53,6 +53,8 @@ if [ ! -f "app/etc/env.php" ]; then
     bin/magento config:set system/smtp/host mailhog
     bin/magento config:set system/smtp/port 1025
 
+    bin/magento module:disable Magento_TwoFactorAuth Magento_AdminAdobeImsTwoFactorAuth
+
     bin/magento sampledata:deploy
     bin/magento deploy:mode:set developer
 fi
