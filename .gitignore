@@ -1,3 +1,6 @@
 /.idea
-/magento/
+
 /.docker/.env
+
+/magento/
+!/magento/app/code/
