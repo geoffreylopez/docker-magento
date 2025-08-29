@@ -61,7 +61,5 @@ fi
 
 composer install
 bin/magento setup:upgrade
-bin/magento cache:flush
-
 
 exec php-fpm -F
