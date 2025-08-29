@@ -46,6 +46,18 @@ RUN { \
 # Installer redis-cli
 RUN apt-get update && apt-get install -y redis-tools
 
+# Installer Xdebug
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug \
+    && { \
+        echo 'zend_extension=xdebug.so'; \
+        echo 'xdebug.mode=debug'; \
+        echo 'xdebug.start_with_request=yes'; \
+        echo 'xdebug.client_host=host.docker.internal'; \
+        echo 'xdebug.client_port=9003'; \
+        echo 'xdebug.log_level=0'; \
+    } > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
 WORKDIR /var/www/html
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
